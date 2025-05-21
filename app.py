@@ -23,9 +23,15 @@ from prompt_and_response import verify_url, validate_api_key, validate_skill_inp
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# --- Function to load CSS ---
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 # --- Streamlit UI ---
 def main():
     st.set_page_config(page_title="Resource Rover", page_icon="🚀", layout="wide")
+    load_css("style.css")  # Load CSS file
     
     # --- Session State ---
     if 'language' not in st.session_state:
@@ -42,43 +48,6 @@ def main():
         st.session_state.available_models = [] # Initialize
     if 'selected_model' not in st.session_state:
         st.session_state.selected_model = None
-
-    # --- CSS Styling ---
-    lang_selector_css = """
-        <style>
-        .language-selector { position: absolute; top: 0.75rem; right: 1rem; z-index: 1000; max-width: 180px; }
-        .stSelectbox > div > div > div { background-color: white; font-size: 0.9em; padding: 4px 8px; }
-        .lang-dropdown { border-left: 3px solid #FF9933; border-right: 3px solid #138808; background-color: #FFFFFF; }
-        .stApp { background: linear-gradient(to bottom right, #f0f2f6, #dcdde1); }
-        .sidebar .sidebar-content { background-color: #e8eaf6; }
-        h1, h2, h3 { font-family: 'Product Sans', sans-serif; }
-        h1 { color: #311b92; font-size: 3em; font-weight: 700; }
-        h2 { color: #4527a0; font-size: 2.5em; font-weight: 600; }
-        h3 { color: #5e35b1; font-size: 2em; font-weight: 500; }
-        .explanation-text { background-color: #ede7f6; padding: 15px; border-radius: 8px; border-left: 5px solid #5e35b1; font-size: 1.1em; line-height: 1.5; }
-        .resource-card { background-color: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .resource-card a { color: #4527a0; text-decoration: none; font-weight: 600; }
-        .resource-card a:hover { text-decoration: underline; }
-        .time-estimate { background-color: #f3e8ff; padding: 8px 15px; border-radius: 20px; border: 1px dashed #9333ea; display: inline-block; margin: 10px 0; font-style: italic; color: #6b21a8; }
-        .stButton>button { background-color: #5e35b1; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
-        .stButton>button:hover { background-color: #4527a0; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .stTextInput>div>div>input { color: #1F2937; border-color: #ddd; border-radius: 8px; padding: 12px 15px; }
-        .stSelectbox>div>div>div { background-color: white; border-color: #ddd; border-radius: 8px; }
-        .stExpander { border-color: #ddd; border-radius: 8px; overflow: hidden; }
-        .stExpanderHeader { font-weight: bold; color: #4527a0; background-color: #f3e8ff; padding: 15px; }
-        .stAlert { border-radius: 8px; }
-        .stAlert.success { background-color: #d1e7dd; color: #0f5132; border-color: #badbcc; }
-        .stAlert.warning { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
-        .stAlert.error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
-        .app-header { position: relative; padding-bottom: 5px; }
-        .app-header::after { content: ""; position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: linear-gradient(to right, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); }
-        .tips-section { background-color: #e0e7ff; padding: 15px; border-radius: 8px; margin-top: 20px; }
-        .tips-section h3 { color: #311b92; }
-        .tips-section ul { list-style-type: disc; margin-left: 20px; }
-        .tips-section li { margin-bottom: 5px; }
-        </style>
-        """
-    st.markdown(lang_selector_css, unsafe_allow_html=True)
 
     # Language selector
     lang_container = st.container()

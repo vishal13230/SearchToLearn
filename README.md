@@ -1,0 +1,113 @@
+# Resource Rover 🚀
+
+## Overview
+
+Resource Rover helps users discover learning resources for any skill by generating personalized learning paths. It leverages Google's AI models to create comprehensive roadmaps tailored to individual learning needs.
+
+## Features
+
+*   **Skill-based learning path generation:** Get a customized plan based on the skill you want to learn.
+*   **Organized learning paths:** Paths are structured into Beginner, Intermediate, and Advanced levels.
+*   **Curated resources:** Includes a variety of resources like videos, articles, documentation, and more.
+*   **Estimated time commitments:** Each level comes with an estimated time to help plan your learning.
+*   **Integration with roadmap.sh:** Option to use industry-standard roadmaps as a base.
+*   **Multi-language support:** Generate learning paths in your preferred language.
+*   **Google AI model selection:** Choose from different Google AI models to generate your path.
+*   **Advanced parameters:** Fine-tune the generation process with advanced settings.
+*   **Downloadable learning paths:** Save your generated learning path in Markdown format.
+
+## Setup Instructions
+
+### Prerequisites
+
+*   **Python 3.12:** Ensure you have Python 3.12 installed. You can check your version with `python --version`.
+*   **`uv` (Python package installer):** We recommend using `uv` for package management.
+    *   Install `uv` via pip:
+        ```bash
+        pip install uv
+        ```
+    *   Or, follow the instructions at https://github.com/astral-sh/uv for other installation methods.
+
+### Cloning the Repository
+
+```bash
+git clone <repository-url> # Replace <repository-url> with the actual URL
+cd resource-rover # Replace resource-rover with your repository directory name
+```
+
+### Creating a Virtual Environment
+
+It's highly recommended to use a virtual environment to manage project dependencies.
+
+```bash
+uv venv
+```
+This command will create a `.venv` directory in your project root.
+
+### Activating the Virtual Environment
+
+*   **macOS/Linux:**
+    ```bash
+    source .venv/bin/activate
+    ```
+*   **Windows:**
+    ```bash
+    .venv\Scripts\activate
+    ```
+You should see the virtual environment name (e.g., `(.venv)`) in your terminal prompt.
+
+### Installing Dependencies
+
+Install the project and its dependencies defined in `pyproject.toml`:
+
+```bash
+uv pip install .
+```
+This command installs the project and its dependencies defined in `pyproject.toml`.
+
+### Environment Variables
+
+Resource Rover requires a Google API Key to access Google's AI models.
+
+1.  **Obtain a Google API Key:**
+    *   Visit https://ai.google.dev/ and follow the instructions to get your API key.
+
+2.  **Create a `.env` file:**
+    *   In the root directory of the project, create a file named `.env`.
+
+3.  **Add your API Key to the `.env` file:**
+    *   Open the `.env` file and add your API key in the following format:
+        ```
+        GOOGLE_API_KEY="your_api_key_here"
+        ```
+    *   Replace `"your_api_key_here"` with your actual Google API Key.
+
+## Running the Application
+
+Once the setup is complete, you can run the application using Streamlit:
+
+```bash
+streamlit run app.py
+```
+This will typically open the application in your default web browser.
+
+## How to Use
+
+*   **Sidebar:**
+    *   Enter your **Google API Key** if not already set via the `.env` file (using the `.env` file is recommended).
+    *   Select your preferred **Google AI Model**.
+    *   Adjust **Advanced Parameters** like temperature or top-k for fine-tuning the generation.
+*   **Main Area:**
+    *   Enter the **skill** you wish to learn in the designated text input field.
+    *   Click the "Generate Learning Path" button.
+    *   The generated path will be displayed, organized by levels.
+*   **Language Selector:**
+    *   Choose your desired language for the learning path from the dropdown menu.
+
+## Contributing
+
+Contributions are welcome! Please feel free to open an issue to report bugs or suggest features, or submit a pull request with your improvements.
+
+## License
+
+This project is licensed under the MIT License.
