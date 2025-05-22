@@ -233,6 +233,14 @@ def parse_response(response_text, level_names):
                         "url": url,
                         "description": description
                     })
+        
+        # Add logging for missing fields
+        if not structured_sections[level]["explanation"]:
+            logger.warning(f"Missing explanation for level '{level}' during parsing.")
+        if not structured_sections[level]["estimated_time"]:
+            logger.warning(f"Missing estimated time for level '{level}' during parsing.")
+        if not structured_sections[level]["resources"]:
+            logger.warning(f"Missing resources for level '{level}' during parsing.")
 
     for level in structured_sections:
         explanation = structured_sections[level]["explanation"]
