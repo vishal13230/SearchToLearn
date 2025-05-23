@@ -12,16 +12,24 @@ def configure_genai(api_key):
     try:
         genai.configure(api_key=api_key)
         # --- Model Availability Check (Crucial Fix) ---
+        target_model = "models/gemini-1.5-flash-latest"
         available_models = []
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                available_models.append(m.name)
-        logger.info(f"Available Gemini models: {available_models}")
-        if not available_models:  # Check if any models are available
-            raise Exception("No Gemini models with 'generateContent' support are available.")
-        
+        try:
+            model = genai.get_model(target_model)
+            if 'generateContent' in model.supported_generation_methods:
+                available_models.append(target_model)
+                logger.info(f"Using specified Gemini model: {target_model}")
+            else:
+                 raise Exception(f"Specified model {target_model} does not support 'generateContent'.")
+        except Exception as e:
+            logger.error(f"Failed to get or check specified model {target_model}: {str(e)}")
+            raise Exception(f"Failed to get or check specified model {target_model}: {str(e)}")
+
+        if not available_models:
+             raise Exception(f"Specified model {target_model} is not available or supported.")
+
         logger.info("Gemini API connection and model check successful.")
-        return available_models  # Return available models
+        return available_models
 
     except Exception as e:
         logger.error(f"Failed to configure Gemini API: {str(e)}")
